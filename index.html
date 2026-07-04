@@ -361,11 +361,17 @@
 const KEYS = {
   happ: [
     {
-      title: "🏴󠁧󠁢󠁳󠁣󠁴󠁿  Шотландия",
+      title: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия",
       meta: "aes-256-gcm · 154.90.32.5:5601",
       status: "online",
       key: "ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@154.90.32.5:5601#🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия%20<Openvles>"
     },
+    // {
+    //   title: "DE-1 · Frankfurt",
+    //   meta: "до 100 Мбит/с · безлимит трафика",
+    //   status: "online",
+    //   key: "vless://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_HAPP_СЮДА"
+    // },
   ],
   incy: [
     {
@@ -374,6 +380,12 @@ const KEYS = {
       status: "online",
       key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.235:8080?typetcp#🇳🇱 Нидерланды%20<Openvles>"
     },
+    // {
+    //   title: "NL-1 · Amsterdam",
+    //   meta: "до 80 Мбит/с · безлимит трафика",
+    //   status: "online",
+    //   key: "vmess://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_INCY_СЮДА"
+    // },
   ]
 };
 
@@ -412,6 +424,7 @@ function copyText(text){
   if(navigator.clipboard && window.isSecureContext){
     return navigator.clipboard.writeText(text);
   }
+  // Фолбэк для старых браузеров / не-https контекста
   return new Promise(function(resolve, reject){
     try{
       const ta = document.createElement('textarea');
