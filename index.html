@@ -7,15 +7,15 @@
 <meta name="description" content="Бесплатные ключи доступа для Happ и Incy: описание серверов, скорость, инструкция по подключению.">
 <style>
   :root{
-    --bg: #0F1420;
-    --bg-card: #171F2E;
-    --bg-card-hover: #1D2740;
-    --line: #262F45;
-    --text: #EDEFF4;
-    --text-muted: #8992A9;
-    --gold: #E8B94B;
-    --teal: #4FD1C5;
-    --danger: #E8734B;
+    --bg-card: rgba(24, 32, 66, 0.55);
+    --bg-card-hover: rgba(32, 43, 90, 0.7);
+    --line: rgba(120, 150, 255, 0.18);
+    --text: #EAF0FF;
+    --text-muted: #8C9BC7;
+    --gold: #00F0FF;
+    --neon2: #B24BFF;
+    --teal: #4FE8D0;
+    --danger: #FF4B7A;
     --radius: 14px;
   }
 
@@ -24,11 +24,21 @@
 
   body{
     margin:0;
-    background: var(--bg);
+    min-height: 100vh;
+    background: linear-gradient(120deg, #050914, #0A1030, #0E1450, #081026, #050914);
+    background-size: 300% 300%;
     color: var(--text);
     font-family: -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    body{ animation: drift 18s ease-in-out infinite; }
+  }
+  @keyframes drift{
+    0%{ background-position: 0% 50%; }
+    50%{ background-position: 100% 50%; }
+    100%{ background-position: 0% 50%; }
   }
 
   a{ color: var(--teal); }
@@ -55,10 +65,11 @@
   .brand .mark{
     width: 30px; height: 30px;
     border-radius: 8px;
-    background: linear-gradient(135deg, var(--gold), #B98A2E);
+    background: linear-gradient(135deg, var(--gold), var(--neon2));
+    box-shadow: 0 0 14px rgba(0, 240, 255, 0.55), 0 0 26px rgba(178, 75, 255, 0.35);
     display:flex; align-items:center; justify-content:center;
     font-family: monospace;
-    color: #17140A;
+    color: #030712;
     font-weight: bold;
     flex-shrink:0;
   }
@@ -74,7 +85,10 @@
   }
   .hero h1 em{
     font-style: normal;
-    color: var(--gold);
+    background: linear-gradient(90deg, var(--gold), var(--neon2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .hero p{
     color: var(--text-muted);
@@ -113,7 +127,9 @@
     border-bottom: 1px solid var(--line);
     position: sticky;
     top: 0;
-    background: var(--bg);
+    background: rgba(6, 10, 24, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 10;
     padding-top: 10px;
   }
@@ -132,6 +148,7 @@
   .tab-btn.active{
     color: var(--text);
     border-bottom-color: var(--gold);
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.7);
   }
   .tab-btn .count{
     color: var(--text-muted);
@@ -145,15 +162,18 @@
 
   .card{
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 18px 20px;
     margin-bottom: 14px;
-    transition: background .15s ease, border-color .15s ease;
+    transition: background .15s ease, border-color .15s ease, box-shadow .2s ease;
   }
   .card:hover{
     background: var(--bg-card-hover);
-    border-color: #34405c;
+    border-color: rgba(0, 240, 255, 0.45);
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.12);
   }
   .card-top{
     display:flex;
@@ -203,18 +223,26 @@
   }
   .copy-btn{
     flex-shrink:0;
-    background: var(--gold);
-    color: #1A1508;
-    border: none;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.45), inset 0 0 8px rgba(0, 240, 255, 0.08);
     border-radius: 10px;
     padding: 0 16px;
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
     font-family: inherit;
+    transition: box-shadow .15s ease, color .15s ease, border-color .15s ease;
   }
-  .copy-btn:hover{ background: #F0C766; }
-  .copy-btn.copied{ background: var(--teal); }
+  .copy-btn:hover{
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.8), inset 0 0 10px rgba(0, 240, 255, 0.15);
+  }
+  .copy-btn.copied{
+    color: var(--teal);
+    border-color: var(--teal);
+    box-shadow: 0 0 18px rgba(79, 232, 208, 0.8);
+  }
 
   .empty{
     color: var(--text-muted);
@@ -243,12 +271,15 @@
   }
   .step{
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 16px;
   }
   .step .n{
     color: var(--gold);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
     font-family: monospace;
     font-size: 13px;
   }
@@ -335,20 +366,14 @@ const KEYS = {
       status: "online",
       key: "ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@154.90.32.5:5601#🏴 Шотландия%20<OpenKey>"
     },
-    // {
-    //   title: "DE-1 · Frankfurt",
-    //   meta: "до 100 Мбит/с · безлимит трафика",
-    //   status: "online",
-    //   key: "vless://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_HAPP_СЮДА"
-    // },
   ],
   incy: [
-    // {
-    //   title: "NL-1 · Amsterdam",
-    //   meta: "до 80 Мбит/с · безлимит трафика",
-    //   status: "online",
-    //   key: "vmess://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_INCY_СЮДА"
-    // },
+    {
+      title: "🇳🇱 Нидерланды",
+      meta: "chacha20-ietf-poly1305 · 193.29.139.235:8080",
+      status: "online",
+      key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.235:8080?typetcp#🇳🇱 Нидерланды%20@outlineOpenKey"
+    },
   ]
 };
 
@@ -387,7 +412,6 @@ function copyText(text){
   if(navigator.clipboard && window.isSecureContext){
     return navigator.clipboard.writeText(text);
   }
-  // Фолбэк для старых браузеров / не-https контекста
   return new Promise(function(resolve, reject){
     try{
       const ta = document.createElement('textarea');
