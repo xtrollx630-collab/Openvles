@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeKeys — бесплатные ключи для Happ и Incy</title>
+<meta name="description" content="Бесплатные ключи доступа для Happ и Incy: описание серверов, скорость, инструкция по подключению.">
+<style>
+  :root{
+    --bg: #0F1420;
+    --bg-card: #171F2E;
+    --bg-card-hover: #1D2740;
+    --line: #262F45;
+    --text: #EDEFF4;
+    --text-muted: #8992A9;
+    --gold: #E8B94B;
+    --teal: #4FD1C5;
+    --danger: #E8734B;
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: var(--teal); }
+
+  .wrap{
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    padding: 20px 0 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+  }
+  .brand .mark{
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--gold), #B98A2E);
+    display:flex; align-items:center; justify-content:center;
+    font-family: monospace;
+    color: #17140A;
+    font-weight: bold;
+    flex-shrink:0;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding: 48px 0 28px; }
+  .hero h1{
+    font-family: "Georgia", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(28px, 5vw, 42px);
+    line-height: 1.15;
+    margin: 0 0 14px;
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero p{
+    color: var(--text-muted);
+    max-width: 58ch;
+    font-size: 16px;
+    margin: 0 0 6px;
+  }
+  .updated{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  }
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 3px rgba(79,209,197,0.15);
+    flex-shrink:0;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .dot.live{ animation: pulse 2s ease-in-out infinite; }
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:.4; }
+  }
+
+  /* ---------- TABS ---------- */
+  .tabs{
+    display:flex;
+    gap: 8px;
+    margin: 28px 0 24px;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+    padding-top: 10px;
+  }
+  .tab-btn{
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 15px;
+    font-family: inherit;
+    padding: 10px 4px 14px;
+    margin-right: 18px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+  }
+  .tab-btn:hover{ color: var(--text); }
+  .tab-btn.active{
+    color: var(--text);
+    border-bottom-color: var(--gold);
+  }
+  .tab-btn .count{
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-left: 4px;
+  }
+
+  /* ---------- CARDS ---------- */
+  .panel{ display:none; padding-bottom: 40px; }
+  .panel.active{ display:block; }
+
+  .card{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .card:hover{
+    background: var(--bg-card-hover);
+    border-color: #34405c;
+  }
+  .card-top{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .card-title{
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .card-meta{
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+  .status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size: 12px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+
+  .key-row{
+    margin-top: 14px;
+    display:flex;
+    gap: 8px;
+    align-items:stretch;
+  }
+  .key-box{
+    flex: 1;
+    min-width: 0;
+    background: #0B0F18;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 12.5px;
+    color: #C9D2E3;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .copy-btn{
+    flex-shrink:0;
+    background: var(--gold);
+    color: #1A1508;
+    border: none;
+    border-radius: 10px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .copy-btn:hover{ background: #F0C766; }
+  .copy-btn.copied{ background: var(--teal); }
+
+  .empty{
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 30px 0;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    text-align:center;
+  }
+
+  /* ---------- INSTRUCTIONS ---------- */
+  .instructions{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+  }
+  .instructions h2{
+    font-family: "Georgia", serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 14px;
+  }
+  .step{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .step .n{
+    color: var(--gold);
+    font-family: monospace;
+    font-size: 13px;
+  }
+  .step p{ margin: 6px 0 0; font-size: 14px; color: var(--text-muted); }
+  .step a{ color: var(--teal); }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 24px 0 40px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand"><span class="mark">⚿</span> FreeKeys</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Бесплатные ключи для <em>Happ</em> и <em>Incy</em></h1>
+    <p>Список рабочих ключей доступа с описанием сервера, скоростью и статусом. Скопируйте ключ и вставьте его в приложение — инструкция ниже.</p>
+    <div class="updated"><span class="dot live"></span> обновлено: <span id="update-time">—</span></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="happ">Happ <span class="count" id="count-happ"></span></button>
+    <button class="tab-btn" data-tab="incy">Incy <span class="count" id="count-incy"></span></button>
+  </nav>
+
+  <section class="panel active" id="panel-happ"></section>
+  <section class="panel" id="panel-incy"></section>
+
+  <section class="instructions">
+    <h2>Как подключиться</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <p>Установите приложение <strong>Happ</strong> или <strong>Incy</strong> из официального магазина приложений для вашей платформы.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <p>Нажмите «Скопировать» рядом с нужным ключом на этой странице.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <p>В приложении выберите «Добавить конфигурацию по ссылке / из буфера обмена» и вставьте ключ.</p>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <p>Сохраните и включите подключение. Если сервер не отвечает — попробуйте другой ключ из списка.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Ключи предоставляются «как есть», без гарантий доступности. Не публикуйте личные данные вместе с ключами.
+  </div>
+</footer>
+
+<script>
+/* ======================================================
+   ДАННЫЕ: отредактируйте этот массив, чтобы добавить,
+   изменить или удалить ключи. Больше ничего трогать не нужно.
+====================================================== */
+const KEYS = {
+  happ: [
+    {
+      title: "🏴 Шотландия",
+      meta: "aes-256-gcm · 154.90.32.5:5601",
+      status: "online",
+      key: "ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@154.90.32.5:5601#🏴 Шотландия%20<OpenKey>"
+    },
+    // {
+    //   title: "DE-1 · Frankfurt",
+    //   meta: "до 100 Мбит/с · безлимит трафика",
+    //   status: "online",
+    //   key: "vless://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_HAPP_СЮДА"
+    // },
+  ],
+  incy: [
+    // {
+    //   title: "NL-1 · Amsterdam",
+    //   meta: "до 80 Мбит/с · безлимит трафика",
+    //   status: "online",
+    //   key: "vmess://ВСТАВЬТЕ_СВОЙ_КЛЮЧ_INCY_СЮДА"
+    // },
+  ]
+};
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+
+function renderPanel(id, items){
+  const panel = document.getElementById('panel-' + id);
+  if(!items || items.length === 0){
+    panel.innerHTML = '<div class="empty">Пока нет доступных ключей в этой категории. Загляните позже.</div>';
+    return;
+  }
+  panel.innerHTML = items.map(function(item, i){
+    return (
+      '<div class="card">' +
+        '<div class="card-top">' +
+          '<div>' +
+            '<p class="card-title">' + escapeHtml(item.title) + '</p>' +
+            '<p class="card-meta">' + escapeHtml(item.meta || '') + '</p>' +
+          '</div>' +
+          '<span class="status"><span class="dot live" style="background:var(--teal)"></span>' + escapeHtml(item.status || 'online') + '</span>' +
+        '</div>' +
+        '<div class="key-row">' +
+          '<div class="key-box" id="key-' + id + '-' + i + '">' + escapeHtml(item.key) + '</div>' +
+          '<button class="copy-btn" data-target="key-' + id + '-' + i + '">Скопировать</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text);
+  }
+  // Фолбэк для старых браузеров / не-https контекста
+  return new Promise(function(resolve, reject){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      resolve();
+    }catch(err){
+      reject(err);
+    }
+  });
+}
+
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const box = document.getElementById(btn.getAttribute('data-target'));
+  copyText(box.textContent).then(function(){
+    const original = btn.textContent;
+    btn.textContent = 'Скопировано';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.getAttribute('data-tab')).classList.add('active');
+  });
+});
+
+renderPanel('happ', KEYS.happ);
+renderPanel('incy', KEYS.incy);
+document.getElementById('count-happ').textContent = KEYS.happ.length ? '(' + KEYS.happ.length + ')' : '';
+document.getElementById('count-incy').textContent = KEYS.incy.length ? '(' + KEYS.incy.length + ')' : '';
+
+document.getElementById('update-time').textContent = new Date().toLocaleString('ru-RU', {
+  day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+});
+</script>
+
+</body>
+</html>
