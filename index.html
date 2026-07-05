@@ -225,4 +225,293 @@
   .card-meta{
     font-size: 13px;
     color: var(--text-muted);
-    margin
+    margin: 0;
+  }
+  .status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size: 12px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .key-row{
+    margin-top: 14px;
+    display:flex;
+    gap: 8px;
+    align-items:stretch;
+  }
+  .key-box{
+    flex: 1;
+    min-width: 0;
+    background: var(--bg-keybox);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--text);
+    white-space: nowrap;
+    overflow-x: auto;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  .copy-btn{
+    flex-shrink:0;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.2), inset 0 0 8px rgba(0, 230, 118, 0.05);
+    border-radius: 10px;
+    padding: 0 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: box-shadow .15s ease, color .15s ease, border-color .15s ease;
+  }
+  body.theme-happ .copy-btn {
+    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 8px rgba(0, 240, 255, 0.05);
+  }
+  .copy-btn:hover{
+    box-shadow: 0 0 18px var(--accent), inset 0 0 10px rgba(0, 230, 118, 0.15);
+  }
+  .copy-btn.copied{
+    color: var(--mint);
+    border-color: var(--mint);
+    box-shadow: 0 0 18px var(--mint);
+  }
+
+  .empty{
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 30px 0;
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    text-align:center;
+  }
+
+  /* ---------- INSTRUCTIONS ---------- */
+  .instructions{
+    border-top: 1px solid var(--line);
+    padding: 32px 0 40px;
+  }
+  .instructions h2{
+    font-family: "Georgia", serif;
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: 14px;
+  }
+  .step{
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    transition: background 0.4s ease, border-color 0.4s ease;
+  }
+  .step .n{
+    color: var(--accent);
+    text-shadow: var(--text-glow);
+    font-family: monospace;
+    font-size: 13px;
+  }
+  .step p{ margin: 6px 0 0; font-size: 14px; color: var(--text-muted); }
+  .step a{ color: var(--mint); }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 24px 0 40px;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body class="theme-happ">
+
+<header>
+  <div class="wrap">
+    <div class="brand"><span class="mark">❖</span> FreeKeys</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Бесплатные ключи для <em>Happ</em> и <em>Incy</em></h1>
+    <p>Список рабочих ключей доступа с описанием сервера, скоростью и статусом. Скопируйте ключ и вставьте его в приложение — инструкция ниже.</p>
+    <div class="updated"><span class="dot live"></span> обновлено: <span id="update-time">—</span></div>
+  </section>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="happ">Happ <span class="count" id="count-happ"></span></button>
+    <button class="tab-btn" data-tab="incy">Incy <span class="count" id="count-incy"></span></button>
+  </nav>
+
+  <section class="panel active" id="panel-happ"></section>
+  <section class="panel" id="panel-incy"></section>
+
+  <section class="instructions">
+    <h2>Как подключиться</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01</div>
+        <p>Установите приложение <strong>Happ</strong> или <strong>Incy</strong> из официального магазина приложений для вашей платформы.</p>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <p>Нажмите «Скопировать» рядом с нужным ключом на этой странице.</p>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <p>В приложении выберите «Добавить конфигурацию по ссылке / из буфера обмена» и вставьте ключ.</p>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <p>Сохраните и включите подключение. Если сервер не отвечает — попробуйте другой ключ из списка.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    Ключи предоставляются «как есть», без гарантий доступности. Не публикуйте личные данные вместе с ключами.
+  </div>
+</footer>
+
+<script>
+/* ======================================================
+   ДАННЫЕ: отредактируйте этот массив, чтобы добавить,
+   изменить или удалить ключи. Больше ничего трогать не нужно.
+====================================================== */
+const KEYS = {
+  happ: [
+    {
+      title: "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия",
+      meta: "aes-256-gcm · 154.90.32.5:5601",
+      status: "online",
+      key: "ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@154.90.32.5:5601#🏴󠁧󠁢󠁳󠁣󠁴󠁿 Шотландия%20<Openvles>"
+    },
+  ],
+  incy: [
+    {
+      title: "🇳🇱 Нидерланды",
+      meta: "chacha20-ietf-poly1305 · 193.29.139.235:8080",
+      status: "online",
+      key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.235:8080?typetcp#🇳🇱 Нидерланды%20<Openvles>"
+    },
+  ]
+};
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+  });
+}
+
+function renderPanel(id, items){
+  const panel = document.getElementById('panel-' + id);
+  if(!items || items.length === 0){
+    panel.innerHTML = '<div class="empty">Пока нет доступных ключей в этой категории. Загляните позже.</div>';
+    return;
+  }
+  panel.innerHTML = items.map(function(item, i){
+    return (
+      '<div class="card">' +
+        '<div class="card-top">' +
+          '<div>' +
+            '<p class="card-title">' + escapeHtml(item.title) + '</p>' +
+            '<p class="card-meta">' + escapeHtml(item.meta || '') + '</p>' +
+          '</div>' +
+          '<span class="status"><span class="dot live"></span>' + escapeHtml(item.status || 'online') + '</span>' +
+        '</div>' +
+        '<div class="key-row">' +
+          '<div class="key-box" id="key-' + id + '-' + i + '">' + escapeHtml(item.key) + '</div>' +
+          '<button class="copy-btn" data-target="key-' + id + '-' + i + '">Скопировать</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+function copyText(text){
+  if(navigator.clipboard && window.isSecureContext){
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise(function(resolve, reject){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      resolve();
+    }catch(err){
+      reject(err);
+    }
+  });
+}
+
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('.copy-btn');
+  if(!btn) return;
+  const box = document.getElementById(btn.getAttribute('data-target'));
+  copyText(box.textContent).then(function(){
+    const original = btn.textContent;
+    btn.textContent = 'Скопировано';
+    btn.classList.add('copied');
+    setTimeout(function(){
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1500);
+  });
+});
+
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('active'); });
+    
+    btn.classList.add('active');
+    const tab = btn.getAttribute('data-tab');
+    document.getElementById('panel-' + tab).classList.add('active');
+    
+    // Динамическое переключение темы на уровне body
+    if(tab === 'happ') {
+      document.body.className = 'theme-happ';
+    } else if(tab === 'incy') {
+      document.body.className = 'theme-incy';
+    }
+  });
+});
+
+renderPanel('happ', KEYS.happ);
+renderPanel('incy', KEYS.incy);
+document.getElementById('count-happ').textContent = KEYS.happ.length ? '(' + KEYS.happ.length + ')' : '';
+document.getElementById('count-incy').textContent = KEYS.incy.length ? '(' + KEYS.incy.length + ')' : '';
+
+document.getElementById('update-time').textContent = new Date().toLocaleString('ru-RU', {
+  day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+});
+</script>
+
+</body>
+</html>
