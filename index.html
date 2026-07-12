@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Openvles — бесплатные ключи для Happ и Incy</title>
-<meta name="description" content="Бесплатные ключи доступа для Happ и Incy: описание серверов, скорость, инструкция по подключению.">
+<title>Openvles & VPN Paid</title>
+<meta name="description" content="Бесплатные ключи доступа и премиум VPN.">
 <style>
   :root{
     --radius: 14px;
   }
 
+  /* =========================================
+     ТЕМЫ САЙТА
+  ========================================= */
+  
+  /* 1. ГЛУБОКАЯ ЧЕРНАЯ ТЕМА ДЛЯ HAPP */
   body.theme-happ {
     --bg-card: rgba(24, 24, 26, 0.65);
     --bg-card-hover: rgba(36, 36, 40, 0.85);
@@ -28,6 +33,7 @@
     background-size: 300% 300%;
   }
 
+  /* 2. СВЕЖАЯ ЗЕЛЕНАЯ ТЕМА ДЛЯ INCY */
   body.theme-incy {
     --bg-card: rgba(20, 40, 28, 0.6);
     --bg-card-hover: rgba(30, 60, 40, 0.85);
@@ -46,6 +52,63 @@
     background-size: 300% 300%;
   }
 
+  /* 3. НЕОНОВАЯ БЕЛАЯ ТЕМА ДЛЯ VPN PAID */
+  body.theme-paid {
+    --bg-card: rgba(5, 5, 5, 0.8);
+    --bg-card-hover: rgba(15, 15, 15, 0.9);
+    --line: rgba(255, 255, 255, 0.4);
+    --text: #FFFFFF;
+    --text-muted: #CCCCCC;
+    --accent: #FFFFFF;
+    --secondary: #FFFFFF;
+    --mint: #FFFFFF;
+    --bg-tabs: rgba(0, 0, 0, 0.8);
+    --shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    --text-glow: 0 0 10px rgba(255, 255, 255, 0.8);
+    --bg-keybox: #000000;
+    background: #020202; /* Абсолютно темный фон */
+  }
+
+  /* ОСОБЕННОСТИ ДЛЯ ПЛАТНОЙ ТЕМЫ */
+  body.theme-paid .card {
+    border: 1px solid #fff;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.05);
+  }
+  body.theme-paid .card:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.1);
+  }
+  body.theme-paid .brand {
+    color: #fff;
+    text-shadow: var(--text-glow);
+  }
+  body.theme-paid .hero h1 {
+    text-shadow: var(--text-glow);
+  }
+  body.theme-paid .hero h1 em {
+    background: #fff;
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  }
+  .clickable-card {
+    cursor: pointer;
+  }
+
+  /* ЛУНА (Справа сверху) */
+  .moon-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    /* Создаем месяц с помощью внутренней тени: белая тень внутри делает контур, остальное черное */
+    box-shadow: inset -6px -4px 0 2px #fff;
+    background: transparent;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+    flex-shrink: 0;
+  }
+
+  /* =========================================
+     БАЗОВЫЕ СТИЛИ
+  ========================================= */
   *{ box-sizing: border-box; }
   html{ scroll-behavior: smooth; }
 
@@ -56,7 +119,7 @@
     font-family: -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background 0.5s ease, color 0.5s ease;
   }
   @media (prefers-reduced-motion: no-preference){
     body{ animation: drift 18s ease-in-out infinite; }
@@ -79,6 +142,11 @@
     padding: 20px 0 10px;
     border-bottom: 1px solid var(--line);
   }
+  .header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   .brand{
     display:flex;
     align-items:center;
@@ -86,6 +154,7 @@
     font-family: "Georgia", "Times New Roman", serif;
     font-size: 20px;
     letter-spacing: 0.5px;
+    transition: all 0.3s ease;
   }
   .brand .mark{
     width: 30px; height: 30px;
@@ -317,13 +386,98 @@
     font-size: 13px;
   }
   .step p{ margin: 6px 0 0; font-size: 14px; color: var(--text-muted); }
-  .step a{ color: var(--mint); }
 
   footer{
     border-top: 1px solid var(--line);
-    padding: 24px 0 40px;
+    padding: 24px 0 100px; /* Увеличен отступ снизу из-за кнопки меню */
     color: var(--text-muted);
     font-size: 13px;
+  }
+
+  /* =========================================
+     МЕХАНИКА "ДВУХ САЙТОВ" (SPA)
+  ========================================= */
+  .site-view {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .site-view.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* =========================================
+     КРУГЛОЕ ПЛАВАЮЩЕЕ МЕНЮ (FAB)
+  ========================================= */
+  .fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .fab-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(10, 10, 15, 0.9);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(5px);
+  }
+  
+  /* Верхняя кнопка (Домой) выезжает чуть выше */
+  .fab-item:nth-child(1) { font-size: 20px; transition-delay: 0.05s; }
+  /* Нижняя кнопка (VPN) */
+  .fab-item:nth-child(2) { transition-delay: 0s; }
+
+  .fab-container.open .fab-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    box-shadow: 0 0 15px var(--accent);
+  }
+
+  .fab-main {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    color: #000;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fab-container.open .fab-main {
+    transform: rotate(45deg);
+    background: var(--danger);
+    box-shadow: 0 0 20px var(--danger);
+    color: #fff;
   }
 
   :focus-visible{
@@ -334,59 +488,116 @@
 </head>
 <body class="theme-happ">
 
-<header>
-  <div class="wrap">
-    <div class="brand"><span class="mark">❖</span> Openvles</div>
-  </div>
-</header>
-
-<div class="wrap">
-
-  <section class="hero">
-    <h1>Бесплатные ключи для <em>Happ</em> и <em>Incy</em></h1>
-    <p>Добро пожаловать на <strong>Openvles</strong>! Здесь вы найдете свежие и быстрые ключи для безопасного доступа в интернет. Все ключи ниже являются универсальными и отлично работают как в приложении Happ, так и в Incy. Просто скопируйте нужный и добавьте в приложение.</p>
-    <div class="updated"><span class="dot live"></span> обновлено: <span id="update-time">—</span></div>
-  </section>
-
-  <nav class="tabs">
-    <button class="tab-btn active" data-tab="happ">Happ <span class="count" id="count-happ"></span></button>
-    <button class="tab-btn" data-tab="incy">Incy <span class="count" id="count-incy"></span></button>
-  </nav>
-
-  <section class="panel active" id="panel-happ"></section>
-  <section class="panel" id="panel-incy"></section>
-
-  <section class="instructions">
-    <h2>Как подключиться</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="n">01</div>
-        <p>Установите приложение <strong>Happ</strong> или <strong>Incy</strong> из официального магазина приложений для вашей платформы.</p>
-      </div>
-      <div class="step">
-        <div class="n">02</div>
-        <p>Нажмите «Скопировать» рядом с нужным ключом на этой странице.</p>
-      </div>
-      <div class="step">
-        <div class="n">03</div>
-        <p>В приложении выберите «Добавить конфигурацию по ссылке / из буфера обмена» и вставьте ключ.</p>
-      </div>
-      <div class="step">
-        <div class="n">04</div>
-        <p>Сохраните и включите подключение. Если сервер не отвечает — попробуйте другой ключ из списка.</p>
-      </div>
+<!-- =========================================
+     САЙТ 1: БЕСПЛАТНЫЕ КЛЮЧИ
+========================================= -->
+<div id="view-home" class="site-view active">
+  <header>
+    <div class="wrap">
+      <div class="brand"><span class="mark">❖</span> Openvles</div>
     </div>
-  </section>
+  </header>
 
+  <div class="wrap">
+    <section class="hero">
+      <h1>Бесплатные ключи для <em>Happ</em> и <em>Incy</em></h1>
+      <p>Добро пожаловать на <strong>Openvles</strong>! Здесь вы найдете свежие и быстрые ключи для безопасного доступа в интернет. Все ключи ниже являются универсальными и отлично работают как в приложении Happ, так и в Incy. Просто скопируйте нужный и добавьте в приложение.</p>
+      <div class="updated"><span class="dot live"></span> обновлено: <span id="update-time">—</span></div>
+    </section>
+
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="happ">Happ <span class="count" id="count-happ"></span></button>
+      <button class="tab-btn" data-tab="incy">Incy <span class="count" id="count-incy"></span></button>
+    </nav>
+
+    <section class="panel active" id="panel-happ"></section>
+    <section class="panel" id="panel-incy"></section>
+
+    <section class="instructions">
+      <h2>Как подключиться</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="n">01</div>
+          <p>Установите приложение <strong>Happ</strong> или <strong>Incy</strong> из официального магазина.</p>
+        </div>
+        <div class="step">
+          <div class="n">02</div>
+          <p>Нажмите «Скопировать» рядом с нужным ключом на этой странице.</p>
+        </div>
+        <div class="step">
+          <div class="n">03</div>
+          <p>В приложении выберите «Добавить конфигурацию по ссылке / из буфера обмена» и вставьте ключ.</p>
+        </div>
+        <div class="step">
+          <div class="n">04</div>
+          <p>Сохраните и включите подключение. Если сервер не отвечает — попробуйте другой ключ.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- =========================================
+     САЙТ 2: VPN PAID (ПРЕМИУМ)
+========================================= -->
+<div id="view-paid" class="site-view">
+  <header>
+    <div class="wrap header-flex">
+      <div class="brand neon-text">VPN Paid</div>
+      <div class="moon-icon"></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>Премиум серверы <em>VPN</em></h1>
+      <p>Здесь находятся сервесы впны где можно купить впны.</p>
+    </section>
+
+    <section class="panel active">
+      
+      <!-- Карточка Durev VPN -->
+      <div class="card clickable-card" onclick="confirmRedirect('https://your-durev.com/sub/k1KM2nqL1QFMXP_sUj8Nxl/go/')">
+        <div class="card-top">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <img src="1000309590.png" alt="Durev VPN Logo" style="width: 50px; height: 50px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.3); object-fit: cover;">
+            <div>
+              <p class="card-title" style="font-size: 18px;">Durev vpn</p>
+              <p class="card-meta">1 мес 505 руб. без скидки (скидки там частые)</p>
+            </div>
+          </div>
+          <span class="status"><span class="dot live" style="background:#fff; box-shadow:0 0 8px #fff;"></span>Купить</span>
+        </div>
+        <div style="margin-top:16px; font-size: 15px; color: var(--text-muted); line-height: 1.6;">
+          Хороший сервис, много серверов, есть белые списки, безлимит трафик.
+        </div>
+      </div>
+      
+    </section>
+  </div>
 </div>
 
 <footer>
-  <div class="wrap">
+  <div class="wrap" style="text-align: center;">
     Ключи предоставляются «как есть», без гарантий доступности. Не публикуйте личные данные вместе с ключами.
   </div>
 </footer>
 
+<!-- =========================================
+     ПЛАВАЮЩЕЕ МЕНЮ (FAB)
+========================================= -->
+<div class="fab-container" id="fab-menu">
+  <!-- 1. Верхняя кнопка: Сайт 1 (Дом) -->
+  <button class="fab-item" onclick="switchSite('home')" title="Домой">🏠</button>
+  <!-- 2. Нижняя кнопка: Сайт 2 (VPN) -->
+  <button class="fab-item" onclick="switchSite('paid')" title="Платный VPN">VPN</button>
+  <!-- Главная круглая кнопка -->
+  <button class="fab-main" onclick="toggleFab()">+</button>
+</div>
+
+
 <script>
+// ДАННЫЕ КЛЮЧЕЙ
 const universalKeys = [
   {
     title: "🏴 Шотландия",
@@ -473,6 +684,7 @@ const KEYS = {
   incy: universalKeys
 };
 
+// Функция отрисовки
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, function(c){
     return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
@@ -504,6 +716,7 @@ function renderPanel(id, items){
   }).join('');
 }
 
+// Скопировать текст
 function copyText(text){
   if(navigator.clipboard && window.isSecureContext){
     return navigator.clipboard.writeText(text);
@@ -541,6 +754,7 @@ document.addEventListener('click', function(e){
   });
 });
 
+// Переключение табов (Happ / Incy)
 document.querySelectorAll('.tab-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -558,14 +772,54 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
   });
 });
 
+// ЛОГИКА МЕНЮ (Смена страниц)
+function toggleFab() {
+  document.getElementById('fab-menu').classList.toggle('open');
+}
+
+function switchSite(siteType) {
+  // Закрываем меню
+  document.getElementById('fab-menu').classList.remove('open');
+  
+  // Переключаем отображение сайтов
+  if(siteType === 'home') {
+    document.getElementById('view-paid').classList.remove('active');
+    document.getElementById('view-home').classList.add('active');
+    
+    // Возвращаем тему активной вкладки (happ или incy)
+    const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
+    document.body.className = 'theme-' + activeTab;
+    window.scrollTo(0, 0);
+  } 
+  else if(siteType === 'paid') {
+    document.getElementById('view-home').classList.remove('active');
+    document.getElementById('view-paid').classList.add('active');
+    
+    // Включаем черную неоновую тему
+    document.body.className = 'theme-paid';
+    window.scrollTo(0, 0);
+  }
+}
+
+// Переход по ссылке с подтверждением
+function confirmRedirect(url) {
+  if (confirm("Вы уверены, что хотите перейти на сайт покупки Durev VPN?")) {
+    window.location.href = url;
+  }
+}
+
+// Инициализация
 renderPanel('happ', KEYS.happ);
 renderPanel('incy', KEYS.incy);
 document.getElementById('count-happ').textContent = KEYS.happ.length ? '(' + KEYS.happ.length + ')' : '';
 document.getElementById('count-incy').textContent = KEYS.incy.length ? '(' + KEYS.incy.length + ')' : '';
 
-document.getElementById('update-time').textContent = new Date().toLocaleString('ru-RU', {
-  day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-});
+const timeElem = document.getElementById('update-time');
+if(timeElem) {
+  timeElem.textContent = new Date().toLocaleString('ru-RU', {
+    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+  });
+}
 </script>
 
 </body>
