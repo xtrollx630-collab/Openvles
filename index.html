@@ -94,16 +94,88 @@
     cursor: pointer;
   }
 
-  /* ЛУНА (Справа сверху) */
+  /* ЛУНА */
   .moon-icon {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    /* Создаем месяц с помощью внутренней тени: белая тень внутри делает контур, остальное черное */
     box-shadow: inset -6px -4px 0 2px #fff;
     background: transparent;
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
     flex-shrink: 0;
+  }
+
+  /* ЗВЕЗДНЫЙ ФОН (Отображается только в теме paid) */
+  #stars-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+    display: none;
+  }
+  body.theme-paid #stars-container {
+    display: block;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px #fff;
+    animation: twinkle linear infinite;
+  }
+  @keyframes twinkle {
+    0%   { opacity: 0; transform: scale(0.5); }
+    50%  { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0; transform: scale(0.5); }
+  }
+
+  /* КАСТОМНОЕ МОДАЛЬНОЕ ОКНО */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(5px);
+  }
+  .modal-overlay.open {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-box {
+    background: #050505;
+    border: 1px solid #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    padding: 24px 30px;
+    width: 320px; max-width: 90%;
+    color: #fff;
+    text-align: center;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+  }
+  .modal-overlay.open .modal-box {
+    transform: translateY(0);
+  }
+  .modal-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  .modal-btn {
+    flex: 1; padding: 10px 0;
+    background: transparent; color: #fff;
+    border: 1px solid #fff;
+    border-radius: 8px; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    transition: all 0.2s ease;
+  }
+  .modal-btn:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 8px rgba(255, 255, 255, 0.2);
   }
 
   /* =========================================
@@ -136,11 +208,15 @@
     max-width: 920px;
     margin: 0 auto;
     padding: 0 20px;
+    position: relative;
+    z-index: 10;
   }
 
   header{
     padding: 20px 0 10px;
     border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 10;
   }
   .header-flex {
     display: flex;
@@ -223,7 +299,7 @@
     background: var(--bg-tabs);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    z-index: 10;
+    z-index: 20;
     padding-top: 10px;
     transition: background 0.4s ease;
   }
@@ -263,6 +339,8 @@
     padding: 18px 20px;
     margin-bottom: 14px;
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 10;
   }
   .card:hover{
     background: var(--bg-card-hover);
@@ -389,9 +467,11 @@
 
   footer{
     border-top: 1px solid var(--line);
-    padding: 24px 0 100px; /* Увеличен отступ снизу из-за кнопки меню */
+    padding: 24px 0 100px;
     color: var(--text-muted);
     font-size: 13px;
+    position: relative;
+    z-index: 10;
   }
 
   /* =========================================
@@ -444,9 +524,7 @@
     backdrop-filter: blur(5px);
   }
   
-  /* Верхняя кнопка (Домой) выезжает чуть выше */
   .fab-item:nth-child(1) { font-size: 20px; transition-delay: 0.05s; }
-  /* Нижняя кнопка (VPN) */
   .fab-item:nth-child(2) { transition-delay: 0s; }
 
   .fab-container.open .fab-item {
@@ -487,6 +565,9 @@
 </style>
 </head>
 <body class="theme-happ">
+
+<!-- ФОН СО ЗВЕЗДАМИ -->
+<div id="stars-container"></div>
 
 <!-- =========================================
      САЙТ 1: БЕСПЛАТНЫЕ КЛЮЧИ
@@ -557,19 +638,36 @@
     <section class="panel active">
       
       <!-- Карточка Durev VPN -->
-      <div class="card clickable-card" onclick="confirmRedirect('https://online.durev-connect.online//?ref_code=KvSdphHP5')">
+      <div class="card clickable-card" onclick="openCustomModal('https://online.durev-connect.online//?ref_code=KvSdphHP5')">
         <div class="card-top">
           <div style="display: flex; align-items: center; gap: 14px;">
             <img src="1000309590.png" alt="Durev VPN Logo" style="width: 50px; height: 50px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.3); object-fit: cover;">
             <div>
               <p class="card-title" style="font-size: 18px;">Durev vpn</p>
-              <p class="card-meta">1 мес 505 руб. без скидки (скидки там частые)</p>
+              <p class="card-meta">Цена 505 руб. / 1 мес (скидки там частые)</p>
             </div>
           </div>
           <span class="status"><span class="dot live" style="background:#fff; box-shadow:0 0 8px #fff;"></span>Купить</span>
         </div>
         <div style="margin-top:16px; font-size: 15px; color: var(--text-muted); line-height: 1.6;">
           Хороший сервис, много серверов, есть белые списки, безлимит трафик.
+        </div>
+      </div>
+
+      <!-- Карточка Trast VPN -->
+      <div class="card clickable-card" onclick="openCustomModal('https://t.me/trustvpn_official_bot?start=R1779618628875')">
+        <div class="card-top">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <div style="width: 50px; height: 50px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; background: rgba(255,255,255,0.05); color: #fff; text-shadow: 0 0 8px #fff;">T</div>
+            <div>
+              <p class="card-title" style="font-size: 18px;">Trast vpn</p>
+              <p class="card-meta">Цена 299 руб. / 1 мес</p>
+            </div>
+          </div>
+          <span class="status"><span class="dot live" style="background:#fff; box-shadow:0 0 8px #fff;"></span>Купить</span>
+        </div>
+        <div style="margin-top:16px; font-size: 15px; color: var(--text-muted); line-height: 1.6;">
+          Хороший впн, безлимит трафик.
         </div>
       </div>
       
@@ -587,16 +685,54 @@
      ПЛАВАЮЩЕЕ МЕНЮ (FAB)
 ========================================= -->
 <div class="fab-container" id="fab-menu">
-  <!-- 1. Верхняя кнопка: Сайт 1 (Дом) -->
   <button class="fab-item" onclick="switchSite('home')" title="Домой">🏠</button>
-  <!-- 2. Нижняя кнопка: Сайт 2 (VPN) -->
   <button class="fab-item" onclick="switchSite('paid')" title="Платный VPN">VPN</button>
-  <!-- Главная круглая кнопка -->
   <button class="fab-main" onclick="toggleFab()">+</button>
+</div>
+
+<!-- =========================================
+     КАСТОМНОЕ МОДАЛЬНОЕ ОКНО
+========================================= -->
+<div class="modal-overlay" id="custom-modal">
+  <div class="modal-box">
+    <!-- Луна по центру -->
+    <div class="moon-icon" style="margin: 0 auto 16px auto;"></div>
+    <p style="font-size: 16px; margin: 0 0 10px 0; text-shadow: 0 0 10px rgba(255,255,255,0.8);">Переход по ссылке</p>
+    <p style="font-size: 14px; color: #ccc; margin: 0;">Вы уверены, что хотите перейти на страницу покупки?</p>
+    
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="closeCustomModal()">No</button>
+      <button class="modal-btn" id="modal-yes-btn">Yes</button>
+    </div>
+  </div>
 </div>
 
 
 <script>
+// ГЕНЕРАЦИЯ ЗВЕЗД ДЛЯ ФОНА
+function generateStars() {
+  const container = document.getElementById('stars-container');
+  const numStars = 60; // Количество звезд
+  
+  for (let i = 0; i < numStars; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Случайный размер, позиция и время анимации
+    const size = Math.random() * 3;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + 'vw';
+    star.style.top = Math.random() * 100 + 'vh';
+    star.style.animationDuration = (Math.random() * 4 + 3) + 's';
+    star.style.animationDelay = (Math.random() * 5) + 's';
+    
+    container.appendChild(star);
+  }
+}
+generateStars();
+
+
 // ДАННЫЕ КЛЮЧЕЙ
 const universalKeys = [
   {
@@ -778,15 +914,12 @@ function toggleFab() {
 }
 
 function switchSite(siteType) {
-  // Закрываем меню
   document.getElementById('fab-menu').classList.remove('open');
   
-  // Переключаем отображение сайтов
   if(siteType === 'home') {
     document.getElementById('view-paid').classList.remove('active');
     document.getElementById('view-home').classList.add('active');
     
-    // Возвращаем тему активной вкладки (happ или incy)
     const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
     document.body.className = 'theme-' + activeTab;
     window.scrollTo(0, 0);
@@ -795,18 +928,29 @@ function switchSite(siteType) {
     document.getElementById('view-home').classList.remove('active');
     document.getElementById('view-paid').classList.add('active');
     
-    // Включаем черную неоновую тему
     document.body.className = 'theme-paid';
     window.scrollTo(0, 0);
   }
 }
 
-// Переход по ссылке с подтверждением
-function confirmRedirect(url) {
-  if (confirm("Вы уверены, что хотите перейти на сайт покупки Durev VPN?")) {
-    window.location.href = url;
-  }
+// КАСТОМНОЕ МОДАЛЬНОЕ ОКНО ДЛЯ ПЕРЕХОДОВ
+let redirectUrl = "";
+
+function openCustomModal(url) {
+  redirectUrl = url;
+  document.getElementById('custom-modal').classList.add('open');
 }
+
+function closeCustomModal() {
+  document.getElementById('custom-modal').classList.remove('open');
+  redirectUrl = "";
+}
+
+document.getElementById('modal-yes-btn').addEventListener('click', function() {
+  if (redirectUrl !== "") {
+    window.location.href = redirectUrl;
+  }
+});
 
 // Инициализация
 renderPanel('happ', KEYS.happ);
