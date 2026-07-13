@@ -270,10 +270,8 @@
 </head>
 <body class="theme-happ">
 
-<!-- ФОН СО ЗВЕЗДАМИ -->
 <div id="stars-container"></div>
 
-<!-- САЙТ 1: БЕСПЛАТНЫЕ КЛЮЧИ -->
 <div id="view-home" class="site-view active">
   <header>
     <div class="wrap">
@@ -320,7 +318,6 @@
   </div>
 </div>
 
-<!-- САЙТ 2: VPN PAID (ПРЕМИУМ) -->
 <div id="view-paid" class="site-view">
   <header>
     <div class="wrap header-flex">
@@ -337,7 +334,6 @@
 
     <section class="panel active">
       
-      <!-- Карточка Durev VPN -->
       <div class="card clickable-card" onclick="openCustomModal('https://online.durev-connect.online//?ref_code=KvSdphHP5')">
         <div class="badge-hit">🔥 Хит продаж</div>
         <div class="card-top">
@@ -355,7 +351,6 @@
         </div>
       </div>
 
-      <!-- Карточка Trast VPN -->
       <div class="card clickable-card" onclick="openCustomModal('https://t.me/trustvpn_official_bot?start=R1779618628875')">
         <div class="card-top">
           <div style="display: flex; align-items: center; gap: 14px;">
@@ -382,14 +377,12 @@
   </div>
 </footer>
 
-<!-- ПЛАВАЮЩЕЕ МЕНЮ -->
 <div class="fab-container" id="fab-menu">
   <button class="fab-item" onclick="switchSite('home')" title="Домой">🏠</button>
   <button class="fab-item" onclick="switchSite('paid')" title="Платный VPN">VPN</button>
   <button class="fab-main" onclick="toggleFab()">+</button>
 </div>
 
-<!-- КАСТОМНОЕ МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="custom-modal">
   <div class="modal-box">
     <div class="moon-icon" style="margin: 0 auto 16px auto;"></div>
@@ -437,7 +430,13 @@ const universalKeys = [
   { title: "🇹🇷 Турция", meta: "aes-256-gcm · 185.123.101.64:2376", status: "online", key: "ss://YWVzLTI1Ni1nY206ZmFCQW9ENTRrODdVSkc3@185.123.101.64:2376#🇹🇷 Турция%20Openvles" },
   { title: "🇳🇱 Нидерланды (3)", meta: "chacha20-ietf-poly1305 · 193.29.139.132:8080", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.132:8080#🇳🇱 Нидерланды%20Openvles" },
   { title: "🇺🇸 США (3)", meta: "aes-128-gcm · 156.146.38.169:443", status: "online", key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@156.146.38.169:443#🇺🇸 США%20Openvles" },
-  { title: "🇬🇧 Великобритания", meta: "vless · 57.129.132.223:80", status: "online", key: "vless://dbb78c94-9f87-4d7d-b945-2000b60352fd@57.129.132.223:80#🇬🇧 Великобритания%20Openvles" }
+  { title: "🇬🇧 Великобритания", meta: "vless · 57.129.132.223:80", status: "online", key: "vless://dbb78c94-9f87-4d7d-b945-2000b60352fd@57.129.132.223:80#🇬🇧 Великобритания%20Openvles" },
+  { title: "🇺🇸 США (4)", meta: "chacha20-ietf-poly1305 · 68.168.222.210:1234", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp6ejBkSGpEZm9hU2FadVJGTEdILWhOZkJBTFNFSlVZRA@68.168.222.210:1234#🇺🇸 США%20Openvles" },
+  { title: "🇺🇸 США (5)", meta: "chacha20-ietf-poly1305 · 104.192.227.162:443", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTo5MUxGVkpoWTZhN2Y4S2VKUGV1WWxu@104.192.227.162:443#🇺🇸 США%20Openvles" },
+  { title: "🇳🇱 Нидерланды (4)", meta: "chacha20-ietf-poly1305 · 193.29.139.184:8080", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.184:8080#🇳🇱 Нидерланды%20Openvles" },
+  { title: "🇳🇱 Нидерланды (5)", meta: "chacha20-ietf-poly1305 · 5.253.59.156:32140", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp4eVJ1QzhvT2M1anJoTU1CUUhHZXhk@5.253.59.156:32140#🇳🇱 Нидерланды%20Openvles" },
+  { title: "🇫🇷 Франция (3)", meta: "vless · 51.44.137.10:22223", status: "online", key: "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@51.44.137.10:22223#🇫🇷 Франция%20Openvles" },
+  { title: "🇨🇦 Канада", meta: "aes-128-gcm · 149.22.95.183:443", status: "online", key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@149.22.95.183:443#🇨🇦 Канада%20Openvles" }
 ];
 
 const KEYS = { happ: universalKeys, incy: universalKeys };
