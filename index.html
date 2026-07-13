@@ -14,7 +14,6 @@
      ТЕМЫ САЙТА
   ========================================= */
   
-  /* 1. ГЛУБОКАЯ ЧЕРНАЯ ТЕМА ДЛЯ HAPP */
   body.theme-happ {
     --bg-card: rgba(24, 24, 26, 0.65);
     --bg-card-hover: rgba(36, 36, 40, 0.85);
@@ -33,7 +32,6 @@
     background-size: 300% 300%;
   }
 
-  /* 2. СВЕЖАЯ ЗЕЛЕНАЯ ТЕМА ДЛЯ INCY */
   body.theme-incy {
     --bg-card: rgba(20, 40, 28, 0.6);
     --bg-card-hover: rgba(30, 60, 40, 0.85);
@@ -52,7 +50,6 @@
     background-size: 300% 300%;
   }
 
-  /* 3. НЕОНОВАЯ БЕЛАЯ ТЕМА ДЛЯ VPN PAID */
   body.theme-paid {
     --bg-card: rgba(5, 5, 5, 0.8);
     --bg-card-hover: rgba(15, 15, 15, 0.9);
@@ -66,10 +63,9 @@
     --shadow: 0 0 15px rgba(255, 255, 255, 0.7);
     --text-glow: 0 0 10px rgba(255, 255, 255, 0.8);
     --bg-keybox: #000000;
-    background: #020202; /* Абсолютно темный фон */
+    background: #020202; 
   }
 
-  /* ОСОБЕННОСТИ ДЛЯ ПЛАТНОЙ ТЕМЫ */
   body.theme-paid .card {
     border: 1px solid #fff;
     box-shadow: 0 0 12px rgba(255, 255, 255, 0.2), inset 0 0 8px rgba(255, 255, 255, 0.05);
@@ -77,50 +73,54 @@
   body.theme-paid .card:hover {
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.1);
   }
-  body.theme-paid .brand {
-    color: #fff;
-    text-shadow: var(--text-glow);
-  }
-  body.theme-paid .hero h1 {
-    text-shadow: var(--text-glow);
-  }
+  body.theme-paid .brand { color: #fff; text-shadow: var(--text-glow); }
+  body.theme-paid .hero h1 { text-shadow: var(--text-glow); }
   body.theme-paid .hero h1 em {
     background: #fff;
     -webkit-background-clip: text;
     color: transparent;
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
   }
-  .clickable-card {
-    cursor: pointer;
-  }
+  .clickable-card { cursor: pointer; position: relative; }
 
   /* ЛУНА */
   .moon-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    width: 24px; height: 24px; border-radius: 50%;
     box-shadow: inset -6px -4px 0 2px #fff;
     background: transparent;
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
     flex-shrink: 0;
   }
 
-  /* ЗВЕЗДНЫЙ ФОН (Отображается только в теме paid) */
-  #stars-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-    display: none;
-  }
-  body.theme-paid #stars-container {
-    display: block;
-  }
-  .star {
+  /* БЕЙДЖ "ХИТ ПРОДАЖ" ДЛЯ 2-Й ВКЛАДКИ */
+  .badge-hit {
     position: absolute;
-    background: #fff;
-    border-radius: 50%;
+    top: -12px;
+    right: 20px;
+    background: linear-gradient(90deg, #FF3366, #FF9933);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 51, 102, 0.6);
+    animation: pulseBadge 2s infinite;
+    z-index: 10;
+  }
+  @keyframes pulseBadge {
+    0% { transform: scale(1); box-shadow: 0 0 10px rgba(255,51,102,0.6); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255,51,102,0.9); }
+    100% { transform: scale(1); box-shadow: 0 0 10px rgba(255,51,102,0.6); }
+  }
+
+  /* ЗВЕЗДНЫЙ ФОН */
+  #stars-container {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: hidden; display: none;
+  }
+  body.theme-paid #stars-container { display: block; }
+  .star {
+    position: absolute; background: #fff; border-radius: 50%;
     box-shadow: 0 0 6px #fff, 0 0 12px #fff;
     animation: twinkle linear infinite;
   }
@@ -135,62 +135,37 @@
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85);
     display: flex; justify-content: center; align-items: center;
-    z-index: 2000;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.3s ease;
-    backdrop-filter: blur(5px);
+    z-index: 2000; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s ease; backdrop-filter: blur(5px);
   }
-  .modal-overlay.open {
-    opacity: 1; pointer-events: auto;
-  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
   .modal-box {
-    background: #050505;
-    border: 1px solid #fff;
+    background: #050505; border: 1px solid #fff;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius);
-    padding: 24px 30px;
-    width: 320px; max-width: 90%;
-    color: #fff;
-    text-align: center;
-    transform: translateY(20px);
-    transition: transform 0.3s ease;
+    border-radius: var(--radius); padding: 24px 30px;
+    width: 320px; max-width: 90%; color: #fff; text-align: center;
+    transform: translateY(20px); transition: transform 0.3s ease;
   }
-  .modal-overlay.open .modal-box {
-    transform: translateY(0);
-  }
-  .modal-actions {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 24px;
-  }
+  .modal-overlay.open .modal-box { transform: translateY(0); }
+  .modal-actions { display: flex; justify-content: space-between; gap: 16px; margin-top: 24px; }
   .modal-btn {
-    flex: 1; padding: 10px 0;
-    background: transparent; color: #fff;
-    border: 1px solid #fff;
-    border-radius: 8px; cursor: pointer;
+    flex: 1; padding: 10px 0; background: transparent; color: #fff;
+    border: 1px solid #fff; border-radius: 8px; cursor: pointer;
     font-family: inherit; font-size: 15px; font-weight: bold;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-    transition: all 0.2s ease;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); transition: all 0.2s ease;
   }
-  .modal-btn:hover {
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 8px rgba(255, 255, 255, 0.2);
-  }
+  .modal-btn:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 8px rgba(255, 255, 255, 0.2); }
 
   /* =========================================
      БАЗОВЫЕ СТИЛИ
   ========================================= */
   *{ box-sizing: border-box; }
   html{ scroll-behavior: smooth; }
-
   body{
-    margin:0;
-    min-height: 100vh;
-    color: var(--text);
+    margin:0; min-height: 100vh; color: var(--text);
     font-family: -apple-system, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
     transition: background 0.5s ease, color 0.5s ease;
   }
   @media (prefers-reduced-motion: no-preference){
@@ -201,367 +176,96 @@
     50%{ background-position: 100% 50%; }
     100%{ background-position: 0% 50%; }
   }
-
   a{ color: var(--mint); }
-
-  .wrap{
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 0 20px;
-    position: relative;
-    z-index: 10;
-  }
-
-  header{
-    padding: 20px 0 10px;
-    border-bottom: 1px solid var(--line);
-    position: relative;
-    z-index: 10;
-  }
-  .header-flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-family: "Georgia", "Times New Roman", serif;
-    font-size: 20px;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-  }
+  .wrap{ max-width: 920px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 10; }
+  header{ padding: 20px 0 10px; border-bottom: 1px solid var(--line); position: relative; z-index: 10; }
+  .header-flex { display: flex; justify-content: space-between; align-items: center; }
+  .brand{ display:flex; align-items:center; gap:10px; font-family: "Georgia", serif; font-size: 20px; letter-spacing: 0.5px; transition: all 0.3s ease; }
   .brand .mark{
-    width: 30px; height: 30px;
-    border-radius: 8px;
+    width: 30px; height: 30px; border-radius: 8px;
     background: linear-gradient(135deg, var(--accent), var(--secondary));
-    box-shadow: var(--shadow);
-    display:flex; align-items:center; justify-content:center;
-    font-family: monospace;
-    color: #000000;
-    font-weight: bold;
-    flex-shrink:0;
-    transition: box-shadow 0.4s ease;
+    box-shadow: var(--shadow); display:flex; align-items:center; justify-content:center;
+    font-family: monospace; color: #000000; font-weight: bold; flex-shrink:0; transition: box-shadow 0.4s ease;
   }
-
   .hero{ padding: 48px 0 28px; }
-  .hero h1{
-    font-family: "Georgia", "Times New Roman", serif;
-    font-weight: 400;
-    font-size: clamp(28px, 5vw, 42px);
-    line-height: 1.15;
-    margin: 0 0 14px;
-  }
-  .hero h1 em{
-    font-style: normal;
-    background: linear-gradient(90deg, var(--accent), var(--mint));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .hero p{
-    color: var(--text-muted);
-    max-width: 58ch;
-    font-size: 16px;
-    margin: 0 0 6px;
-  }
-  .updated{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    margin-top: 18px;
-    font-size: 13px;
-    color: var(--text-muted);
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-  }
-  .dot{
-    width:8px; height:8px; border-radius:50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.15);
-    flex-shrink:0;
-  }
-  @media (prefers-reduced-motion: no-preference){
-    .dot.live{ animation: pulse 2s ease-in-out infinite; }
-  }
-  @keyframes pulse{
-    0%,100%{ opacity:1; }
-    50%{ opacity:.4; }
-  }
+  .hero h1{ font-family: "Georgia", serif; font-weight: 400; font-size: clamp(28px, 5vw, 42px); line-height: 1.15; margin: 0 0 14px; }
+  .hero h1 em{ font-style: normal; background: linear-gradient(90deg, var(--accent), var(--mint)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p{ color: var(--text-muted); max-width: 58ch; font-size: 16px; margin: 0 0 6px; }
+  .updated{ display:inline-flex; align-items:center; gap:8px; margin-top: 18px; font-size: 13px; color: var(--text-muted); font-family: monospace; }
+  .dot{ width:8px; height:8px; border-radius:50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.15); flex-shrink:0; }
+  @media (prefers-reduced-motion: no-preference){ .dot.live{ animation: pulse 2s ease-in-out infinite; } }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
 
   .tabs{
-    display:flex;
-    gap: 8px;
-    margin: 28px 0 24px;
-    border-bottom: 1px solid var(--line);
-    position: sticky;
-    top: 0;
-    background: var(--bg-tabs);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 20;
-    padding-top: 10px;
-    transition: background 0.4s ease;
+    display:flex; gap: 8px; margin: 28px 0 24px; border-bottom: 1px solid var(--line);
+    position: sticky; top: 0; background: var(--bg-tabs);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 20; padding-top: 10px; transition: background 0.4s ease;
   }
   .tab-btn{
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    font-size: 15px;
-    font-family: inherit;
-    padding: 10px 4px 14px;
-    margin-right: 18px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s ease;
+    background: none; border: none; color: var(--text-muted); font-size: 15px; font-family: inherit;
+    padding: 10px 4px 14px; margin-right: 18px; cursor: pointer; border-bottom: 2px solid transparent; transition: color 0.2s ease;
   }
   .tab-btn:hover{ color: var(--text); }
-  .tab-btn.active{
-    color: var(--text);
-    border-bottom-color: var(--accent);
-    text-shadow: var(--text-glow);
-  }
-  .tab-btn .count{
-    color: var(--text-muted);
-    font-size: 12px;
-    margin-left: 4px;
-  }
+  .tab-btn.active{ color: var(--text); border-bottom-color: var(--accent); text-shadow: var(--text-glow); }
+  .tab-btn .count{ color: var(--text-muted); font-size: 12px; margin-left: 4px; }
 
   .panel{ display:none; padding-bottom: 40px; }
   .panel.active{ display:block; }
-
   .card{
-    background: var(--bg-card);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    margin-bottom: 14px;
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 10;
+    background: var(--bg-card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px;
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; position: relative; z-index: 10;
   }
-  .card:hover{
-    background: var(--bg-card-hover);
-    border-color: rgba(0, 230, 118, 0.45);
-    box-shadow: 0 0 22px rgba(0, 230, 118, 0.12);
-  }
-  body.theme-happ .card:hover {
-    border-color: rgba(0, 240, 255, 0.45);
-    box-shadow: 0 0 22px rgba(0, 240, 255, 0.12);
-  }
-  .card-top{
-    display:flex;
-    justify-content: space-between;
-    align-items:flex-start;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .card-title{
-    font-size: 16px;
-    font-weight: 600;
-    margin: 0 0 4px;
-  }
-  .card-meta{
-    font-size: 13px;
-    color: var(--text-muted);
-    margin: 0;
-  }
-  .status{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-size: 12px;
-    font-family: "SFMono-Regular", Consolas, monospace;
-    color: var(--accent);
-    white-space: nowrap;
-  }
+  .card:hover{ background: var(--bg-card-hover); border-color: rgba(0, 230, 118, 0.45); box-shadow: 0 0 22px rgba(0, 230, 118, 0.12); }
+  body.theme-happ .card:hover { border-color: rgba(0, 240, 255, 0.45); box-shadow: 0 0 22px rgba(0, 240, 255, 0.12); }
+  .card-top{ display:flex; justify-content: space-between; align-items:flex-start; gap: 12px; flex-wrap: wrap; }
+  .card-title{ font-size: 16px; font-weight: 600; margin: 0 0 4px; }
+  .card-meta{ font-size: 13px; color: var(--text-muted); margin: 0; }
+  .status{ display:inline-flex; align-items:center; gap:6px; font-size: 12px; font-family: monospace; color: var(--accent); white-space: nowrap; }
 
-  .key-row{
-    margin-top: 14px;
-    display:flex;
-    gap: 8px;
-    align-items:stretch;
-  }
+  .key-row{ margin-top: 14px; display:flex; gap: 8px; align-items:stretch; }
   .key-box{
-    flex: 1;
-    min-width: 0;
-    background: var(--bg-keybox);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    font-size: 12.5px;
-    color: var(--text);
-    white-space: nowrap;
-    overflow-x: auto;
-    transition: background 0.4s ease, border-color 0.4s ease;
+    flex: 1; min-width: 0; background: var(--bg-keybox); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 12px; font-family: monospace; font-size: 12.5px; color: var(--text); white-space: nowrap;
+    overflow-x: auto; transition: background 0.4s ease, border-color 0.4s ease;
   }
   .copy-btn{
-    flex-shrink:0;
-    background: transparent;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    box-shadow: 0 0 10px rgba(0, 230, 118, 0.2), inset 0 0 8px rgba(0, 230, 118, 0.05);
-    border-radius: 10px;
-    padding: 0 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: inherit;
-    transition: box-shadow .15s ease, color .15s ease, border-color .15s ease;
+    flex-shrink:0; background: transparent; color: var(--accent); border: 1px solid var(--accent);
+    box-shadow: 0 0 10px rgba(0, 230, 118, 0.2), inset 0 0 8px rgba(0, 230, 118, 0.05); border-radius: 10px;
+    padding: 0 16px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: box-shadow .15s ease, color .15s ease, border-color .15s ease;
   }
-  body.theme-happ .copy-btn {
-    box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 8px rgba(0, 240, 255, 0.05);
-  }
-  .copy-btn:hover{
-    box-shadow: 0 0 18px var(--accent), inset 0 0 10px rgba(0, 230, 118, 0.15);
-  }
-  .copy-btn.copied{
-    color: var(--mint);
-    border-color: var(--mint);
-    box-shadow: 0 0 18px var(--mint);
-  }
+  body.theme-happ .copy-btn { box-shadow: 0 0 10px rgba(0, 240, 255, 0.2), inset 0 0 8px rgba(0, 240, 255, 0.05); }
+  .copy-btn:hover{ box-shadow: 0 0 18px var(--accent), inset 0 0 10px rgba(0, 230, 118, 0.15); }
+  .copy-btn.copied{ color: var(--mint); border-color: var(--mint); box-shadow: 0 0 18px var(--mint); }
+  .empty{ color: var(--text-muted); font-size: 14px; padding: 30px 0; border: 1px dashed var(--line); border-radius: var(--radius); text-align:center; }
 
-  .empty{
-    color: var(--text-muted);
-    font-size: 14px;
-    padding: 30px 0;
-    border: 1px dashed var(--line);
-    border-radius: var(--radius);
-    text-align:center;
-  }
-
-  .instructions{
-    border-top: 1px solid var(--line);
-    padding: 32px 0 40px;
-  }
-  .instructions h2{
-    font-family: "Georgia", serif;
-    font-weight: 400;
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-  .steps{
-    display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-    gap: 14px;
-  }
-  .step{
-    background: var(--bg-card);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px;
-    transition: background 0.4s ease, border-color 0.4s ease;
-  }
-  .step .n{
-    color: var(--accent);
-    text-shadow: var(--text-glow);
-    font-family: monospace;
-    font-size: 13px;
-  }
+  .instructions{ border-top: 1px solid var(--line); padding: 32px 0 40px; }
+  .instructions h2{ font-family: "Georgia", serif; font-weight: 400; font-size: 22px; margin-bottom: 16px; }
+  .steps{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 14px; }
+  .step{ background: var(--bg-card); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; transition: background 0.4s ease, border-color 0.4s ease; }
+  .step .n{ color: var(--accent); text-shadow: var(--text-glow); font-family: monospace; font-size: 13px; }
   .step p{ margin: 6px 0 0; font-size: 14px; color: var(--text-muted); }
 
-  footer{
-    border-top: 1px solid var(--line);
-    padding: 24px 0 100px;
-    color: var(--text-muted);
-    font-size: 13px;
-    position: relative;
-    z-index: 10;
-  }
+  footer{ border-top: 1px solid var(--line); padding: 24px 0 100px; color: var(--text-muted); font-size: 13px; position: relative; z-index: 10; }
 
-  /* =========================================
-     МЕХАНИКА "ДВУХ САЙТОВ" (SPA)
-  ========================================= */
-  .site-view {
-    display: none;
-    animation: fadeIn 0.5s ease;
-  }
-  .site-view.active {
-    display: block;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* МЕХАНИКА "ДВУХ САЙТОВ" */
+  .site-view { display: none; animation: fadeIn 0.5s ease; }
+  .site-view.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* =========================================
-     КРУГЛОЕ ПЛАВАЮЩЕЕ МЕНЮ (FAB)
-  ========================================= */
-  .fab-container {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-  
+  /* ПЛАВАЮЩЕЕ МЕНЮ */
+  .fab-container { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: center; gap: 12px; }
   .fab-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: rgba(10, 10, 15, 0.9);
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: translateY(20px) scale(0.8);
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    backdrop-filter: blur(5px);
+    width: 50px; height: 50px; border-radius: 50%; background: rgba(10, 10, 15, 0.9); border: 1px solid var(--accent); color: var(--accent); font-size: 14px; font-weight: bold; cursor: pointer; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transform: translateY(20px) scale(0.8); pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(5px);
   }
-  
   .fab-item:nth-child(1) { font-size: 20px; transition-delay: 0.05s; }
   .fab-item:nth-child(2) { transition-delay: 0s; }
-
-  .fab-container.open .fab-item {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    pointer-events: auto;
-    box-shadow: 0 0 15px var(--accent);
-  }
-
+  .fab-container.open .fab-item { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; box-shadow: 0 0 15px var(--accent); }
   .fab-main {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--accent);
-    border: none;
-    color: #000;
-    font-size: 28px;
-    cursor: pointer;
-    z-index: 1001;
-    transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
-    box-shadow: var(--shadow);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 60px; height: 60px; border-radius: 50%; background: var(--accent); border: none; color: #000; font-size: 28px; cursor: pointer; z-index: 1001; transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: center;
   }
-  
-  .fab-container.open .fab-main {
-    transform: rotate(45deg);
-    background: var(--danger);
-    box-shadow: 0 0 20px var(--danger);
-    color: #fff;
-  }
-
-  :focus-visible{
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+  .fab-container.open .fab-main { transform: rotate(45deg); background: var(--danger); box-shadow: 0 0 20px var(--danger); color: #fff; }
+  :focus-visible{ outline: 2px solid var(--accent); outline-offset: 2px; }
 </style>
 </head>
 <body class="theme-happ">
@@ -569,9 +273,7 @@
 <!-- ФОН СО ЗВЕЗДАМИ -->
 <div id="stars-container"></div>
 
-<!-- =========================================
-     САЙТ 1: БЕСПЛАТНЫЕ КЛЮЧИ
-========================================= -->
+<!-- САЙТ 1: БЕСПЛАТНЫЕ КЛЮЧИ -->
 <div id="view-home" class="site-view active">
   <header>
     <div class="wrap">
@@ -618,9 +320,7 @@
   </div>
 </div>
 
-<!-- =========================================
-     САЙТ 2: VPN PAID (ПРЕМИУМ)
-========================================= -->
+<!-- САЙТ 2: VPN PAID (ПРЕМИУМ) -->
 <div id="view-paid" class="site-view">
   <header>
     <div class="wrap header-flex">
@@ -639,9 +339,10 @@
       
       <!-- Карточка Durev VPN -->
       <div class="card clickable-card" onclick="openCustomModal('https://online.durev-connect.online//?ref_code=KvSdphHP5')">
+        <div class="badge-hit">🔥 Хит продаж</div>
         <div class="card-top">
           <div style="display: flex; align-items: center; gap: 14px;">
-            <img src="1000309590.png" alt="Durev VPN Logo" style="width: 50px; height: 50px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.3); object-fit: cover;">
+            <div style="width: 50px; height: 50px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.3); display: flex; align-items: center; justify-content: center; font-size: 24px; background: rgba(255,255,255,0.05); color: #fff; text-shadow: 0 0 8px #fff;">D</div>
             <div>
               <p class="card-title" style="font-size: 18px;">Durev vpn</p>
               <p class="card-meta">Цена 505 руб. / 1 мес (скидки там частые)</p>
@@ -681,25 +382,19 @@
   </div>
 </footer>
 
-<!-- =========================================
-     ПЛАВАЮЩЕЕ МЕНЮ (FAB)
-========================================= -->
+<!-- ПЛАВАЮЩЕЕ МЕНЮ -->
 <div class="fab-container" id="fab-menu">
   <button class="fab-item" onclick="switchSite('home')" title="Домой">🏠</button>
   <button class="fab-item" onclick="switchSite('paid')" title="Платный VPN">VPN</button>
   <button class="fab-main" onclick="toggleFab()">+</button>
 </div>
 
-<!-- =========================================
-     КАСТОМНОЕ МОДАЛЬНОЕ ОКНО
-========================================= -->
+<!-- КАСТОМНОЕ МОДАЛЬНОЕ ОКНО -->
 <div class="modal-overlay" id="custom-modal">
   <div class="modal-box">
-    <!-- Луна по центру -->
     <div class="moon-icon" style="margin: 0 auto 16px auto;"></div>
     <p style="font-size: 16px; margin: 0 0 10px 0; text-shadow: 0 0 10px rgba(255,255,255,0.8);">Переход по ссылке</p>
     <p style="font-size: 14px; color: #ccc; margin: 0;">Вы уверены, что хотите перейти на страницу покупки?</p>
-    
     <div class="modal-actions">
       <button class="modal-btn" onclick="closeCustomModal()">No</button>
       <button class="modal-btn" id="modal-yes-btn">Yes</button>
@@ -709,16 +404,13 @@
 
 
 <script>
-// ГЕНЕРАЦИЯ ЗВЕЗД ДЛЯ ФОНА
+// ГЕНЕРАЦИЯ ЗВЕЗД
 function generateStars() {
   const container = document.getElementById('stars-container');
-  const numStars = 60; // Количество звезд
-  
+  const numStars = 60; 
   for (let i = 0; i < numStars; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    
-    // Случайный размер, позиция и время анимации
     const size = Math.random() * 3;
     star.style.width = size + 'px';
     star.style.height = size + 'px';
@@ -726,106 +418,31 @@ function generateStars() {
     star.style.top = Math.random() * 100 + 'vh';
     star.style.animationDuration = (Math.random() * 4 + 3) + 's';
     star.style.animationDelay = (Math.random() * 5) + 's';
-    
     container.appendChild(star);
   }
 }
 generateStars();
 
-
 // ДАННЫЕ КЛЮЧЕЙ
 const universalKeys = [
-  {
-    title: "🏴 Шотландия",
-    meta: "aes-256-gcm · 156.244.32.9:7002",
-    status: "online",
-    key: "ss://YWVzLTI1Ni1nY206UmV4bkJnVTdFVjVBRHhH@156.244.32.9:7002#🏴 Шотландия%20Openvles"
-  },
-  {
-    title: "🇳🇱 Нидерланды",
-    meta: "chacha20-ietf-poly1305 · 193.29.139.144:8080",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.144:8080?prefix%16%03%01%00%C2%A8%01%01#🇳🇱 Нидерланды%20Openvles"
-  },
-  {
-    title: "🇺🇸 США",
-    meta: "aes-128-gcm · 173.244.56.6:443",
-    status: "online",
-    key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@173.244.56.6:443#🇺🇸 США%20Openvles"
-  },
-  {
-    title: "🇫🇷 Франция",
-    meta: "chacha20-ietf-poly1305 · 137.74.119.18:10443",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpkaU9NQlU1SUR2SmNGcXlOUGJSallS@137.74.119.18:10443#🇫🇷 Франция%20Openvles"
-  },
-  {
-    title: "🇳🇱 Нидерланды (2)",
-    meta: "chacha20-ietf-poly1305 · 193.29.139.235:8080",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.235:8080?typetcp#🇳🇱 Нидерланды%20Openvles"
-  },
-  {
-    title: "🇫🇮 Финляндия",
-    meta: "chacha20-ietf-poly1305 · 109.107.182.229:51544",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpUbGdrb2hSRzlHWVR6NGxRc05MdzlR@109.107.182.229:51544#🇫🇮 Финляндия%20<Openvles>"
-  },
-  {
-    title: "🇺🇸 США (2)",
-    meta: "chacha20-ietf-poly1305 · 38.54.80.160:16292",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpyX05SZS0rV1JxMnpWcU1wQ25KdFRFU2xUOFd5ZmZIeUZ5@38.54.80.160:16292#🇺🇸 США%20 Openvles"
-  },
-  {
-    title: "🇫🇷 Франция (2)",
-    meta: "chacha20-ietf-poly1305 · 135.125.239.51:19834",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp5VGIxaUx3Vm5abks3OXprVnFIU1lx@135.125.239.51:19834#🇫🇷 Франция%20 Openvles"
-  },
-  {
-    title: "🇩🇪 Германия",
-    meta: "vless · 3.121.132.146:22224",
-    status: "online",
-    key: "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@3.121.132.146:22224#🇩🇪 Германия%20Openvles"
-  },
-  {
-    title: "🇹🇷 Турция",
-    meta: "aes-256-gcm · 185.123.101.64:2376",
-    status: "online",
-    key: "ss://YWVzLTI1Ni1nY206ZmFCQW9ENTRrODdVSkc3@185.123.101.64:2376#🇹🇷 Турция%20Openvles"
-  },
-  {
-    title: "🇳🇱 Нидерланды (3)",
-    meta: "chacha20-ietf-poly1305 · 193.29.139.132:8080",
-    status: "online",
-    key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.132:8080#🇳🇱 Нидерланды%20Openvles"
-  },
-  {
-    title: "🇺🇸 США (3)",
-    meta: "aes-128-gcm · 156.146.38.169:443",
-    status: "online",
-    key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@156.146.38.169:443#🇺🇸 США%20Openvles"
-  },
-  {
-    title: "🇬🇧 Великобритания",
-    meta: "vless · 57.129.132.223:80",
-    status: "online",
-    key: "vless://dbb78c94-9f87-4d7d-b945-2000b60352fd@57.129.132.223:80#🇬🇧 Великобритания%20Openvles"
-  }
+  { title: "🏴 Шотландия", meta: "aes-256-gcm · 156.244.32.9:7002", status: "online", key: "ss://YWVzLTI1Ni1nY206UmV4bkJnVTdFVjVBRHhH@156.244.32.9:7002#🏴 Шотландия%20Openvles" },
+  { title: "🇳🇱 Нидерланды", meta: "chacha20-ietf-poly1305 · 193.29.139.144:8080", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.144:8080?prefix%16%03%01%00%C2%A8%01%01#🇳🇱 Нидерланды%20Openvles" },
+  { title: "🇺🇸 США", meta: "aes-128-gcm · 173.244.56.6:443", status: "online", key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@173.244.56.6:443#🇺🇸 США%20Openvles" },
+  { title: "🇫🇷 Франция", meta: "chacha20-ietf-poly1305 · 137.74.119.18:10443", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpkaU9NQlU1SUR2SmNGcXlOUGJSallS@137.74.119.18:10443#🇫🇷 Франция%20Openvles" },
+  { title: "🇳🇱 Нидерланды (2)", meta: "chacha20-ietf-poly1305 · 193.29.139.235:8080", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.235:8080?typetcp#🇳🇱 Нидерланды%20Openvles" },
+  { title: "🇫🇮 Финляндия", meta: "chacha20-ietf-poly1305 · 109.107.182.229:51544", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpUbGdrb2hSRzlHWVR6NGxRc05MdzlR@109.107.182.229:51544#🇫🇮 Финляндия%20<Openvles>" },
+  { title: "🇺🇸 США (2)", meta: "chacha20-ietf-poly1305 · 38.54.80.160:16292", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpyX05SZS0rV1JxMnpWcU1wQ25KdFRFU2xUOFd5ZmZIeUZ5@38.54.80.160:16292#🇺🇸 США%20 Openvles" },
+  { title: "🇫🇷 Франция (2)", meta: "chacha20-ietf-poly1305 · 135.125.239.51:19834", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp5VGIxaUx3Vm5abks3OXprVnFIU1lx@135.125.239.51:19834#🇫🇷 Франция%20 Openvles" },
+  { title: "🇩🇪 Германия", meta: "vless · 3.121.132.146:22224", status: "online", key: "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@3.121.132.146:22224#🇩🇪 Германия%20Openvles" },
+  { title: "🇹🇷 Турция", meta: "aes-256-gcm · 185.123.101.64:2376", status: "online", key: "ss://YWVzLTI1Ni1nY206ZmFCQW9ENTRrODdVSkc3@185.123.101.64:2376#🇹🇷 Турция%20Openvles" },
+  { title: "🇳🇱 Нидерланды (3)", meta: "chacha20-ietf-poly1305 · 193.29.139.132:8080", status: "online", key: "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@193.29.139.132:8080#🇳🇱 Нидерланды%20Openvles" },
+  { title: "🇺🇸 США (3)", meta: "aes-128-gcm · 156.146.38.169:443", status: "online", key: "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@156.146.38.169:443#🇺🇸 США%20Openvles" },
+  { title: "🇬🇧 Великобритания", meta: "vless · 57.129.132.223:80", status: "online", key: "vless://dbb78c94-9f87-4d7d-b945-2000b60352fd@57.129.132.223:80#🇬🇧 Великобритания%20Openvles" }
 ];
 
-const KEYS = {
-  happ: universalKeys,
-  incy: universalKeys
-};
+const KEYS = { happ: universalKeys, incy: universalKeys };
 
-// Функция отрисовки
-function escapeHtml(str){
-  return String(str).replace(/[&<>"']/g, function(c){
-    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
-  });
-}
+function escapeHtml(str){ return String(str).replace(/[&<>"']/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]; }); }
 
 function renderPanel(id, items){
   const panel = document.getElementById('panel-' + id);
@@ -852,26 +469,15 @@ function renderPanel(id, items){
   }).join('');
 }
 
-// Скопировать текст
 function copyText(text){
-  if(navigator.clipboard && window.isSecureContext){
-    return navigator.clipboard.writeText(text);
-  }
+  if(navigator.clipboard && window.isSecureContext){ return navigator.clipboard.writeText(text); }
   return new Promise(function(resolve, reject){
     try{
       const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      resolve();
-    }catch(err){
-      reject(err);
-    }
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy');
+      document.body.removeChild(ta); resolve();
+    }catch(err){ reject(err); }
   });
 }
 
@@ -880,17 +486,11 @@ document.addEventListener('click', function(e){
   if(!btn) return;
   const box = document.getElementById(btn.getAttribute('data-target'));
   copyText(box.textContent).then(function(){
-    const original = btn.textContent;
-    btn.textContent = 'Скопировано';
-    btn.classList.add('copied');
-    setTimeout(function(){
-      btn.textContent = original;
-      btn.classList.remove('copied');
-    }, 1500);
+    const original = btn.textContent; btn.textContent = 'Скопировано'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = original; btn.classList.remove('copied'); }, 1500);
   });
 });
 
-// Переключение табов (Happ / Incy)
 document.querySelectorAll('.tab-btn').forEach(function(btn){
   btn.addEventListener('click', function(){
     document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -900,26 +500,18 @@ document.querySelectorAll('.tab-btn').forEach(function(btn){
     const tab = btn.getAttribute('data-tab');
     document.getElementById('panel-' + tab).classList.add('active');
     
-    if(tab === 'happ') {
-      document.body.className = 'theme-happ';
-    } else if(tab === 'incy') {
-      document.body.className = 'theme-incy';
-    }
+    if(tab === 'happ') { document.body.className = 'theme-happ'; } 
+    else if(tab === 'incy') { document.body.className = 'theme-incy'; }
   });
 });
 
-// ЛОГИКА МЕНЮ (Смена страниц)
-function toggleFab() {
-  document.getElementById('fab-menu').classList.toggle('open');
-}
+function toggleFab() { document.getElementById('fab-menu').classList.toggle('open'); }
 
 function switchSite(siteType) {
   document.getElementById('fab-menu').classList.remove('open');
-  
   if(siteType === 'home') {
     document.getElementById('view-paid').classList.remove('active');
     document.getElementById('view-home').classList.add('active');
-    
     const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-tab');
     document.body.className = 'theme-' + activeTab;
     window.scrollTo(0, 0);
@@ -927,32 +519,19 @@ function switchSite(siteType) {
   else if(siteType === 'paid') {
     document.getElementById('view-home').classList.remove('active');
     document.getElementById('view-paid').classList.add('active');
-    
     document.body.className = 'theme-paid';
     window.scrollTo(0, 0);
   }
 }
 
-// КАСТОМНОЕ МОДАЛЬНОЕ ОКНО ДЛЯ ПЕРЕХОДОВ
 let redirectUrl = "";
-
-function openCustomModal(url) {
-  redirectUrl = url;
-  document.getElementById('custom-modal').classList.add('open');
-}
-
-function closeCustomModal() {
-  document.getElementById('custom-modal').classList.remove('open');
-  redirectUrl = "";
-}
+function openCustomModal(url) { redirectUrl = url; document.getElementById('custom-modal').classList.add('open'); }
+function closeCustomModal() { document.getElementById('custom-modal').classList.remove('open'); redirectUrl = ""; }
 
 document.getElementById('modal-yes-btn').addEventListener('click', function() {
-  if (redirectUrl !== "") {
-    window.location.href = redirectUrl;
-  }
+  if (redirectUrl !== "") { window.location.href = redirectUrl; }
 });
 
-// Инициализация
 renderPanel('happ', KEYS.happ);
 renderPanel('incy', KEYS.incy);
 document.getElementById('count-happ').textContent = KEYS.happ.length ? '(' + KEYS.happ.length + ')' : '';
@@ -960,9 +539,7 @@ document.getElementById('count-incy').textContent = KEYS.incy.length ? '(' + KEY
 
 const timeElem = document.getElementById('update-time');
 if(timeElem) {
-  timeElem.textContent = new Date().toLocaleString('ru-RU', {
-    day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
-  });
+  timeElem.textContent = new Date().toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
 }
 </script>
 
